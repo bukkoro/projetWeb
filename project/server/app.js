@@ -57,7 +57,7 @@ createUser("doro12", "enguerrand12", "12test@gmail.com", "test12")
 
 
 const getUserByEmail_Fname = function(Fname,Uemail,callback){
-    User.find({family_name : Fname, email : Uemail  }, function (err, docs) { 
+    User.find({ family_name : Fname, email : Uemail }, function (err, docs) { 
         if (err){ 
             console.log(err); 
         }
@@ -67,7 +67,28 @@ const getUserByEmail_Fname = function(Fname,Uemail,callback){
         callback(docs)
     });
 }
-
+const deleteUser = function(Fname,Uemail,callback){
+    User.deleteOne({family_name : Fname, email : Uemail }, function(err,docs) {
+    if (err){ 
+            console.log(err); 
+        }
+        else{ 
+            console.log("Trouvé : ", docs); 
+        }
+        callback(docs)
+    });
+}
+const updateUser = function(FnameA,FnameN,UemailA,UemailN, pswd, grades, nameN, callback){
+    User.updateOne({family_name : FnameA, email : UemailA },{family_name:FnameN,name:nameN, email:UemailN, password:pswd, grade:grades, date:dateM} ,function(err,docs) {
+    if (err){ 
+            console.log(err); 
+        }
+        else{ 
+            console.log("Trouvé : ", docs); 
+        }
+        callback(docs)
+    });
+}
 //En guise de test 
 //getUserByEmail_Fname("doro12","12test@gmail.com",function(res){
 //    console.log(res)
@@ -75,8 +96,18 @@ const getUserByEmail_Fname = function(Fname,Uemail,callback){
 
 //Se servir de ce model pour créer toutes les routes GET - PUT - UPDATE - DELETE
 app.get('/user', (req, res) => { 
-    console.log(req)
-    getUserByEmail_Fname(req.body.family_name,req.body.email,function(resp){
+    getUserByEmail_Fname(req.body.family_name,req.body.email, function(resp){
       res.send(resp)
       })
   })
+  app.get('/delete/user', (req, res) => { 
+    deleteUser(req.body.family_name,req.body.email, function(resp){
+      res.send(resp)
+      })
+  })
+  app.update('/update/user', (req, res) => { 
+    updateUser(req.body.FnameA,req.body.FnameN,req.body.UemailA,req.body.UemailN, req.body.pswd, req.body.grades, req.body.nameN, function(resp){
+      res.send(resp)
+      })
+  })
+
