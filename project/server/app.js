@@ -23,7 +23,9 @@ app.listen(8080, () => {
 });
 
 //base de donnée mongoDB 
-mongoose.connect('mongodb+srv://deliverHome:test@cluster0.ddyzt.mongodb.net/test',{useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect('mongodb+srv://deliverHome:test@cluster0.ddyzt.mongodb.net/test',{useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connect('mongodb://localhost:27017/DeliverHome', {useNewUrlParser: true, useUnifiedTopology: true });
 
 const User_schema = new Schema({
     family_name: String,
@@ -35,6 +37,7 @@ const User_schema = new Schema({
 
 });
 
+
 const User = mongoose.model("User", User_schema);
 
 createUser = function(family_nameM,nameM, emailM, passwordM, gradeM, dateM){
@@ -44,14 +47,20 @@ createUser = function(family_nameM,nameM, emailM, passwordM, gradeM, dateM){
     });
 };
 
-//createUser("doro2", "enguerrand2", "test2", "2test@gmail.com")
+/*
+createUser("doro4", "enguerrand4", "4test@gmail.com", "test4")
+createUser("doro3", "enguerrand3", "3test@gmail.com", "test3")
+createUser("doro2", "enguerrand2", "2test@gmail.com", "test2")
+
+createUser("doro12", "enguerrand12", "12test@gmail.com", "test12")
+*/
 
 
-const getUserByEmail = function( callback){
-    User.find({ }, function (err, docs) { 
+const getUserByEmail_Fname = function(Fname,Uemail,callback){
+    User.find({family_name : Fname, email : Uemail  }, function (err, docs) { 
         if (err){ 
             console.log(err); 
-        } 
+        }
         else{ 
             console.log("Trouvé : ", docs); 
         }
@@ -59,19 +68,15 @@ const getUserByEmail = function( callback){
     });
 }
 
+//En guise de test 
+//getUserByEmail_Fname("doro12","12test@gmail.com",function(res){
+//    console.log(res)
+//})
 
-
-getUserByEmail()
-
+//Se servir de ce model pour créer toutes les routes GET - PUT - UPDATE - DELETE
 app.get('/user', (req, res) => { 
     console.log(req)
-    getUserByEmail(req.body.email,function(resp){
+    getUserByEmail_Fname(req.body.family_name,req.body.email,function(resp){
       res.send(resp)
       })
   })
-
-
-  
-
-
-
