@@ -33,3 +33,5 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/back',Router);
+
+//---------IMAGE ADDING-----------------è

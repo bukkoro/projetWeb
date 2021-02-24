@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
-
 const User_schema = new Schema({
     family_name: String,
     name : String, 
@@ -26,10 +25,18 @@ const Publication_schema = new Schema({
     type : String,
     description : String,
     Uemail : String,
-    data : Buffer,
+    data : {
+        type :Buffer,
+        contentType: String
+    },
     //like : {type : Array, default : 0},
-    like: [{
+    /*
+    comments: [{
         type: String
+    }],
+    */
+    like: [{
+        type: Number
     }],
     date : {type : Date, default : Date.now}, 
 })
