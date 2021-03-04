@@ -50,16 +50,14 @@ let upload = multer({ storage: storage });
 
 // Step 8 - the POST handler for processing the uploaded file
 
-app.post('/upload_file', (req, res, next) => {
+app.post('/inscription', (req, res, next) => {
 	var obj = {
 		name: req.body.Name,
 		family_name: req.body.family_name, 
 		email: req.body.email, //automatic filling of current user
 		password: req.body.password,
-		
-		
 	}
-	log.console(obj); 
+	console.log(obj); 
 	});
 
 
