@@ -36,19 +36,18 @@ app.set("view engine", "ejs");
 //let upload = multer({ storage: storage });
 
  
- app.get('/inscription', (req, res) => {
+ app.get('/Connexion', (req, res) => {
     
-            res.render('formInscr');
+            res.render('formCo');
         
     });
 
 
 // Step 8 - the POST handler for processing the uploaded file
 
-app.post('/inscription', (req, res, next) => {
+app.post('/Connexion', (req, res, next) => {
 	var obj = {
-		name: req.body.Name,
-		family_name: req.body.family_name, 
+		
 		email: req.body.email, //automatic filling of current user
 		password: req.body.password,
 	}
