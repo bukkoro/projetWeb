@@ -7,7 +7,7 @@ exports.HgetUserByEmail_Fname = (req, res) => {
 }
 exports.HcreateUser = (req,res) => {
     db.createUser(req.body.family_name, req.body.name, req.body.email, req.body.password, function(resp){
-        res.send(resp)
+        res.status(200).send(resp)
         })
 }
 exports.HdeleteUser = (req,res) => {
