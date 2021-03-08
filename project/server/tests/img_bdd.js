@@ -51,7 +51,7 @@ let upload = multer({ storage: storage });
 // Step 8 - the POST handler for processing the uploaded file
 
 app.post('/upload_file', upload.single('image'), (req, res, next) => {
-	var obj = {
+	const obj = {
 		email: req.body.email, //automatic filling of current user
 		desc: req.body.desc,
 		img: {

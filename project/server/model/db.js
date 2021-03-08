@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
+const multer = require('multer');
 
 const User_schema = new Schema({
     family_name: String,
@@ -40,17 +41,61 @@ const Publication_schema = new Schema({
     }],
     date : {type : Date, default : Date.now}, 
 })
+const ImageSchema = new Schema({
+	email: {
+		type :String,
+		required : false
+	},
+	desc: String,
+	img:
+	{
+		data: Buffer,
+		contentType: String
+	},
+	like: {
+        type: Number, default : 0
+    },
+    date : {type : Date, default : Date.now}, 
+	//for the future - add comments to the image publication
+});
+const  storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
 
 const User = mongoose.model("User", User_schema);
 const UserProfileDescription = mongoose.model("UserProfileDescription", UserProfileDescription_schema);
 const Publication = mongoose.model("Publication", Publication_schema);
+const Image = mongoose.model('Image', ImageSchema);
 
+/*
 exports.createUser = function(family_nameM,nameM, emailM, passwordM){
     const user = new User({family_name:family_nameM,name:nameM, email:emailM, password:passwordM});
     user.save().then(function(){
         console.log("User créée : ",user);
     });
 };
+*/
+
+exports.createUser = function(family_nameM,emailM,nameM,passwordM, callback) {
+    User.find({email : emailM }, function(err,docs) {
+    console.log(docs)
+        if (docs.length){
+          callback('User exists already')
+        } else {
+            const user = new User({family_name:family_nameM,name:nameM, email:emailM, password:passwordM});
+            user.save().then(function(){
+                console.log("User créée : ",user);
+                callback(user)
+            });
+          }
+    })
+}
+
 exports.createUserProfileDescription = function(descriptionM,UemailM){
     const UPdescription = new UserProfileDescription({description : descriptionM,Uemail : UemailM});
     UPdescription.save().then(function(){
@@ -110,7 +155,7 @@ exports.deleteUser = function(Fname,Uemail,callback){
     });
 };
 //Update
-exports.updateUserProfileDescription = function(descriptionM,UemailM){
+exports.updateUserProfileDescription = function(descriptionM,UemailM,callback){
     UserProfileDescription.updateOne({email : UemailM},{description : descriptionM},function(err,docs) {
         if (err){ 
             console.log(err); 
@@ -132,3 +177,36 @@ exports.updateUser = function(FnameA,FnameN,UemailA,UemailN, pswd, grades, nameN
         callback(docs)
     });
 };
+
+//------------------------IMAGE BDD---------------------------------------------------------------
+
+const upload = multer({ storage: storage });
+// A tester 
+exports.getImagesbyEmail = function(emailM, callback) {
+    Image.find({email : emailM}, (err, items) => {
+        if (err) {
+            console.log(err);
+            callback(err);
+            //res.status(500).send('An error occurred', err);
+        }
+        else {
+            callback ({ items: items });
+            //res.render({ items: items });
+        }
+    });
+}
+exports.createImage = function(obj, callback) {
+    Image.create(obj, (err, item) => {
+		if (err) {
+			console.log(err);
+		}
+		else {
+			item.save();
+			res.redirect('/upload_file'); //redirect to the feed 
+		}
+    callback(item)
+	});
+}
+exports.likeImage = function() {
+    
+}

@@ -9,6 +9,7 @@ exports.HcreateUser = (req,res) => {
     db.createUser(req.body.family_name, req.body.name, req.body.email, req.body.password, function(resp){
         res.send(resp)
         })
+        
 }
 exports.HdeleteUser = (req,res) => {
     db.deleteUser(req.body.family_name,req.body.email, function(resp){
@@ -32,6 +33,25 @@ exports.HgetUserProfileDescription = (req,res) => {
 }
 exports.HdeletetUserProfileDescription = (req,res) => {
     db.HdeletetUserProfileDescription(req.body.Uemail, function(resp){
+        res.send(resp)
+    })
+}
+// A tester
+exports.HgetImagebyEmail = (req,res) => {
+    db.getImagesbyEmail(req.body.email, function(resp){
+        res.send(resp)
+    })
+}
+exports.HcreateImage = (req,res) => {
+    const obj = {
+		email: req.body.email, //automatic filling of current user
+		desc: req.body.desc,
+		img: {
+			data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+			contentType: 'image/png'
+		}
+	} 
+    db.createImage(obj, function(resp) {
         res.send(resp)
     })
 }

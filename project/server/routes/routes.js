@@ -10,5 +10,8 @@ Router.post('/update/user', handler.HupdateUser)
 Router.post('/update/profiledesc', handler.HupdateUserProfileDescription)
 Router.get('/get/profiledesc', handler.HgetUserProfileDescription)
 Router.delete('/delete/profiledesc', handler.HdeletetUserProfileDescription)
+// A tester 
+Router.get('/get/image', handler.HgetImagebyEmail)
+Router.post('/create/image', handler.HcreateImage)
 
 module.exports = Router
