@@ -81,27 +81,47 @@ exports.createUser = function(family_nameM,nameM, emailM, passwordM){
 };
 */
 
-exports.createUser = function(family_nameM,emailM,nameM,passwordM, callback) {
+exports.createUser = function(family_nameM,nameM,emailM,passwordM, callback) {
     User.find({email : emailM }, function(err,docs) {
     console.log(docs)
         if (docs.length){
-          callback('User exists already')
+          callback({
+              state :false,
+              data : "Email already exists"
+            })
         } else {
             const user = new User({family_name:family_nameM,name:nameM, email:emailM, password:passwordM});
             user.save().then(function(){
                 console.log("User créée : ",user);
-                callback(user)
+                callback({
+                    state:true,
+                    data : docs
+                  })
             });
           }
     })
 }
-
 exports.createUserProfileDescription = function(descriptionM,UemailM){
-    const UPdescription = new UserProfileDescription({description : descriptionM,Uemail : UemailM});
-    UPdescription.save().then(function(){
-        console.log("Description de profil créé : ",UPdescription);
-    });
-};
+    User.find({email : emailM }, function(err,docs) {
+        console.log(docs)
+            if (docs.length){
+              callback({
+                  state :false,
+                  data : "Already exits"
+                })
+            }
+            else {
+              const UPdescription = new UserProfileDescription({description : descriptionM,Uemail : UemailM});
+              UPdescription.save().then(function(){
+                console.log("Description de profil créée : ",UPdescription);
+                callback({
+                    state:true,
+                    data : docs
+                })
+            });
+        }
+    })
+}
 exports.createPublication = function(typeM, descriptionM, UemailM, dataM){
     const publication = new Publication({type : typeM, description : descriptionM, Uemail : UemailM, data : dataM});
     Publication.save().then(function(){
@@ -109,26 +129,56 @@ exports.createPublication = function(typeM, descriptionM, UemailM, dataM){
     });
 };
 //Get
-exports.getUserByEmail_Fname = function(Fname,Uemail,callback){
-    User.find({ family_name : Fname, email : Uemail }, function (err, docs) { 
+exports.getUserByEmail_Fname = function(Uemail,callback){
+    User.find({email : Uemail }, function (err, docs) { 
         if (err){ 
             console.log(err); 
+            callback({
+                state:false,
+                data:[]
+            })
         }
         else{ 
-            console.log("Trouvé : ", docs); 
+            if(docs.length > 0){
+                callback({
+                    state:true,
+                    data:docs
+                })
+                console.log("Trouvé : ", docs); 
+            }else{
+                callback({
+                    state:false,
+                    data:[]
+                })
+            }
         }
-        callback(docs)
     });
 };
 exports.getUserProfileDescription = function(UemailM,callback){
     UserProfileDescription.find({ email : UemailM }, function (err, docs) { 
         if (err){ 
-            console.log(err); 
+            /*
+            console.log(err);
+            callback({
+                state:false,
+                data:[]
+            }) 
+            */
         }
         else{ 
-            console.log("Trouvé : ", docs); 
+            if(docs.length > 0){
+                callback({
+                    state:true,
+                    data:docs
+                })
+                console.log("Trouvé : ", docs); 
+            }else{
+                callback({
+                    state:false,
+                    data:[]
+                })
+            }
         }
-        callback(docs)
     });
 };
 //Delete
@@ -138,9 +188,20 @@ exports.deleteUserProfileDescrition = function(UemailM,callback){
             console.log(err);
         }
         else{ 
+            if(docs.length > 0){
+                callback({
+                    state:true,
+                    data:docs
+                })
             console.log("Trouvé : ", docs); 
+            }
+            else{
+                callback({
+                    state:false,
+                    data:[]
+                })
+            }
         }
-        callback(docs)
     });
 };
 exports.deleteUser = function(Fname,Uemail,callback){
@@ -148,10 +209,21 @@ exports.deleteUser = function(Fname,Uemail,callback){
     if (err){ 
             console.log(err); 
         }
-        else{ 
-            console.log("Trouvé : ", docs); 
+    else{ 
+            if(docs.length > 0){
+                callback({
+                    state:true,
+                    data:docs
+                })
+                console.log("Supprimé : ", docs); 
+            }
+            else{
+                callback({
+                    state:false,
+                    data:[]
+                })
+            }
         }
-        callback(docs)
     });
 };
 //Update
@@ -160,24 +232,56 @@ exports.updateUserProfileDescription = function(descriptionM,UemailM,callback){
         if (err){ 
             console.log(err); 
         }
-        else{ 
-            console.log("Description de profil : ", docs); 
+    else{ 
+            if(docs.length > 0){
+                callback({
+                    state:true,
+                    data:docs
+                })
+                console.log("MAJ : ", docs); 
+            }
+            else{
+                callback({
+                    state:false,
+                    data:[]
+                })
+            }
         }
-        callback(docs)
     });
 };
 exports.updateUser = function(FnameA,FnameN,UemailA,UemailN, pswd, grades, nameN, callback){
     User.updateOne({family_name : FnameA, email : UemailA },{family_name:FnameN,name:nameN, email:UemailN, password:pswd, grade:grades, date:dateM} ,function(err,docs) {
     if (err){ 
-            console.log(err); 
+            console.log(err);
         }
-        else{ 
+    else{ 
+        if(docs.length > 0){
+                callback({
+                    state:true,
+                    data:docs
+                })
+        }else{
+                callback({
+                    state:false,
+                    data:[]
+                })
+            }
             console.log("MaJ : ", docs); 
         }
-        callback(docs)
     });
 };
 
+exports.follow = function(follower, tofollow) {
+    UserProfileDescription.find({ email : UemailM }, function (err, docs) { 
+        if (err){ 
+            console.log(err); 
+        }
+        else{ 
+            console.log("Trouvé : ", docs); 
+        }
+        callback(docs.follower)
+    });
+}
 //------------------------IMAGE BDD---------------------------------------------------------------
 
 const upload = multer({ storage: storage });
@@ -202,7 +306,7 @@ exports.createImage = function(obj, callback) {
 		}
 		else {
 			item.save();
-			res.redirect('/upload_file'); //redirect to the feed 
+			//res.redirect('/upload_file'); //redirect to the feed 
 		}
     callback(item)
 	});

@@ -1,7 +1,7 @@
 const db = require('../model/db')
 
 exports.HgetUserByEmail_Fname = (req, res) => {
-    db.getUserByEmail_Fname(req.body.family_name,req.body.email, function(resp){
+    db.getUserByEmail_Fname(req.body.email, function(resp){
         res.send(resp)
         })
 }
@@ -9,7 +9,7 @@ exports.HcreateUser = (req,res) => {
     db.createUser(req.body.family_name, req.body.name, req.body.email, req.body.password, function(resp){
         res.send(resp)
         })
-        
+           
 }
 exports.HdeleteUser = (req,res) => {
     db.deleteUser(req.body.family_name,req.body.email, function(resp){
