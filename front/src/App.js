@@ -1,5 +1,6 @@
 import LoginRegisterForm from "./loginRegisterForm"
-import UploadImageForm from "./uploadImageForm"
+//import Header from "./header"
+//import UploadImageForm from "./uploadImageForm"
 import ReactDOM from "react-dom"
 
 function App() {
@@ -9,6 +10,6 @@ function App() {
 }
 
 export default App;
-if(document.getElementById("root")){
+/*if(document.getElementById("root")){
   ReactDOM.render(<App />, document.getElementById("root"));
-}
+}*/
