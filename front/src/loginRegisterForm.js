@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import axios from "axios";
+import './loginRegisterForm.css'
 
 async function LoginUser(userInfo) {
-    return await axios.post("/api/login", userInfo).then((res) => {
+    return await axios.post("http://localhost:8080/back/get/profiledesc", userInfo).then((res) => {
         return res.data.accessToken;
     });
 }
@@ -27,107 +28,74 @@ export default function LoginRegisterForm({ setToken, setIsregister }) {
     };
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
-        registerUser({email,password})
+        LoginUser({email,password})
     };
-    
+    console.clear();
+
 
     return (
         <section className="forms-section">
-            <h1 className="section-title">InstISEN</h1>
-            <div className="forms">
-                <div className="form-wrapper is-active">
-                    <button type="button" className="switcher switcher-login">
-                        Login
-                        <span className="underline"></span>
-                    </button>
-                    <form className="form form-login" onSubmit={handleLoginSubmit}>
-                        <fieldset>
-                            <legend>
-                                Please, enter your email and password for login.
-                            </legend>
-                            <div className="input-block">
-                                <label htmlFor="login-email">E-mail</label>
-                                <input
-                                    id="login-email"
-                                    type="email"
-                                    name="email"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="input-block">
-                                <label htmlFor="login-password">Password</label>
-                                <input
-                                    id="login-password"
-                                    type="password"
-                                    name="password"
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                    required
-                                />
-                            </div>
-                        </fieldset>
-                        <button type="submit" className="btn-login">
-                            Login
-                        </button>
-                    </form>
-                </div>
-                <div className="form-wrapper">
-                    <button type="button" className="switcher switcher-signup">
-                        Sign Up
-                        <span className="underline"></span>
-                    </button>
-                    <form className="form form-signup" onSubmit={handleRegisterSubmit}>
-                        <fieldset>
-                            <legend>
-                                Please, enter your email, password and password
-                                confirmation for sign up.
-                            </legend>
-                            <div className="input-block">
-                                <label htmlFor="signup-name">firstname</label>
-                                <input
-                                    id="signup-password-confirmation"
-                                    type="text"
-                                    onChange={(e) => setName(e.target.value)}
-                                    required
-                                />
-                                 <label htmlFor="signup-name">surname</label>
-                                <input
-                                    id="signup-password-confirmation"
-                                    type="text"
-                                    onChange={(e) => setFamilyname(e.target.value)}
-                                    required
-                                />
-                                <label htmlFor="signup-email">E-mail</label>
-                                <input
-                                    id="signup-email"
-                                    type="email"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="input-block">
-                                <label htmlFor="signup-password">
-                                    Password
-                                </label>
-                                <input
-                                    id="signup-password"
-                                    type="password"
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                    required
-                                />
-                                
-                            </div>
-                        </fieldset>
-                        <button type="submit" className="btn-signup">
-                            Continue
-                        </button>
-                    </form>
-                </div>
+           
+            
+            <div className="form-structor">      
+
+            <div className="login-wrap">
+    <div className="login-html">
+        
+        <h2 className="section-title">DeliverHome</h2>
+        <input id="tab-1" type="radio" name="tab" className="sign-in" /><label for="tab-1" className="tab">Sign In</label>
+        <input id="tab-2" type="radio" name="tab" className="sign-up" /><label for="tab-2" className="tab">Sign Up</label>  
+    <div className="login-form" >
+        <form className="sign-in-htm" onSubmit={handleLoginSubmit}>
+            <div className="group">
+                <label for="user" className="label">E-mail</label>
+                <input id="login_email" type="email" className="input"  onChange={(e) => setEmail(e.target.value)} required />
             </div>
-        </section>
+            <div className="group">
+                <label for="pass" className="label">Password</label>
+                <input id="login-password" type="password" className="input" data-type="password" onChange={(e) => setPassword(e.target.value) } required />
+            </div>
+            <br></br>
+            <div className="group">
+                <button type="submit" className="button" value="btn-login">Login</button>
+            </div>
+            <div className="hr">
+            </div>
+            
+        </form>
+        <form className="sign-up-htm"  onSubmit={handleRegisterSubmit}>
+            <div className="group">
+                <label for="user" className="label">Firstname</label>
+                <input id="user" type="text" className="input" onChange={(e) => setName(e.target.value)} required/>
+            </div>
+            <div className="group">
+                <label for="user" className="label">Surname</label>
+            <input id="user" type="text" className="input"  onChange={(e) => setFamilyname(e.target.value)}  required />
+            </div>
+            <div className="group">
+                <label for="pass" className="label">Password</label>
+                <input id="pass" type="password" className="input" data-type="password" onChange={(e) =>setPassword(e.target.value)} required />
+            </div>
+            <div className="group">
+                <label for="pass" className="label">Email Address</label>
+                <input id="pass" type="text" className="input" onChange={(e) => setEmail(e.target.value)} required />
+            </div>
+            <div className="group">
+                <button type="submit" className="button" value="btn-signup"> Register </button>
+            </div>
+            <div className="hr">
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+
+
+            
+	        </div>
+        </section> 
+        
     );
+    
 }

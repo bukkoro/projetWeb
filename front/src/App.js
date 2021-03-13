@@ -1,14 +1,14 @@
 import LoginRegisterForm from "./loginRegisterForm"
 import UploadImageForm from "./uploadImageForm"
+import ReactDOM from "react-dom"
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
         <LoginRegisterForm/>
-        
-      </header>
-    </div>
   );
 }
 
 export default App;
+if(document.getElementById("root")){
+  ReactDOM.render(<App />, document.getElementById("root"));
+}

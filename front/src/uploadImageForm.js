@@ -1,6 +1,6 @@
 import React, { useState, useEffect }from 'react';
 import axios from 'axios';
-import ImageDisplay from './ImageDisplay'
+import ImageDisplay from './imageDisplay'
 
 async function uploadImage(data,header)
 {
@@ -21,7 +21,7 @@ export default  function UploadImageForm()
     const [BroadcastListName,setBroadcastListName] = useState();
     const [Tags, setTags] = useState();
    useEffect(() =>{
-       const tmp = axios.post('http://localhost:8080/back/post/image', null, config)
+       const tmp = axios.post('http://localhost:8080/back/post/image', null)
        tmp.then( resp =>{
            console.log(resp.data.broadcast_lists)
            SetBroadcastList(resp.data.broadcast_lists)
@@ -43,7 +43,7 @@ export default  function UploadImageForm()
         data.append('image', ImageSelected);
         data.append('legend',Legend);
         data.appen('tags',Tags)
-        await uploadImage(data,config);
+        await uploadImage(data);
     }
     const legendChangedHandler = async e =>{
     setLegend(e.target.value)
