@@ -5,11 +5,14 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 const Router = require('./routes/routes')
 
+mongoose.set('useCreateIndex', true)
 mongoose.connect('mongodb://localhost:27017/DeliverHome', {useNewUrlParser: true, useUnifiedTopology: true });
 
 // Init an Exconspress App. 
 const app = express();
 const PORT = 8080;
+
+app.set("view engine", "ejs");
 
 // use all controllers(APIs) here && // Use your dependencies here
 app.get('/', (req, res) => {

@@ -94,7 +94,7 @@ createUser("doro12", "enguerrand12", "12test@gmail.com", "test12")
 /** 
 createUserProfileDescription("Hello je m'appelle Blaise Pascalette !","12test@gmail.com")
 **/
-createUserProfileDescription("Hello je m'appelle Blaise Pascalette !","12test@gmail.com")
+//createUserProfileDescription("Hello je m'appelle Blaise Pascalette !","12test@gmail.com")
 const getUserByEmail_Fname = function(Fname,Uemail,callback){
     User.find({ family_name : Fname, email : Uemail }, function (err, docs) { 
         if (err){ 
@@ -128,6 +128,22 @@ const updateUser = function(FnameA,FnameN,UemailA,UemailN, pswd, grades, nameN, 
         callback(docs)
     });
 }
+
+const CcreateUser = function(family_nameM,emailM,nameM,passwordM, callback) {
+    User.find({email : emailM }, function(err,docs) {
+    console.log(docs)
+        if (docs.length){
+          callback('User exists already')
+        } else {
+            //callback(nok)
+            const user = new User({family_name:family_nameM,name:nameM, email:emailM, password:passwordM});
+            user.save().then(function(){
+                console.log("User créée : ",user);
+                callback(user)
+            });
+          }
+    })
+}
 //En guise de test 
 //getUserByEmail_Fname("doro12","12test@gmail.com",function(res){
 //    console.log(res)
@@ -152,6 +168,13 @@ app.delete('/delete/user', (req, res) => {
   })
 app.post('/update/user', (req, res) => { 
     updateUser(req.body.FnameA,req.body.FnameN,req.body.UemailA,req.body.UemailN, req.body.pswd, req.body.grades, req.body.nameN, function(resp){
+      res.send(resp)
+      })
+  })
+
+app.post('/test/add', (req, res) => { 
+    CcreateUser(req.body.family_name,req.body.email,req.body.name,req.body.password, function(resp){
+      console.log(req.body.email)
       res.send(resp)
       })
   })
