@@ -14,23 +14,6 @@ const UsersPost = function () {
     // bind schema with database
     this.postDB = mongoose.model('UsersPost', this.schema);
 };
-
-UsersPost.prototype.addPost = function (img, email, callback) {
-    const self = this;
-    const post = new self.postDB({img: img, email: email});
-    post.save().then(function () {
-        callback({
-            state: true,
-            data: []
-        })
-    }).catch(function () {
-        callback({
-            state: false,
-            data: []
-        })
-    });
-};
-
 UsersPost.prototype.getAllPost = function (email, callback) {
     const self = this;
     self.postDB.find({email: email}, function (err, docs) {
@@ -53,6 +36,22 @@ UsersPost.prototype.getAllPost = function (email, callback) {
             }
         }
     })
+};
+
+UsersPost.prototype.addPost = function (img, email, desc, callback) {
+    const self = this;
+    const post = new self.postDB({img: img, email: email, desc: desc});
+    post.save().then(function () {
+        callback({
+            state: true,
+            data: []
+        })
+    }).catch(function () {
+        callback({
+            state: false,
+            data: []
+        })
+    });
 };
 
 UsersPost.prototype.likePost = function (postid, callback) {
@@ -94,6 +93,38 @@ UsersPost.prototype.deletePost = function (postid, email, callback) {
         }
     })
 }
+
+UsersPost.prototype.getbyHashtag = function (hashtag, callback) {
+    const self = this;
+    self.postDB.find({}, function (err, docs) {
+        if (err) {
+            callback({
+                state: false,
+                data: err
+            })
+        } else {
+            if (docs.length > 0) {
+               const retour = []
+               docs.forEach(element => { 
+                if (element.desc.includes(hashtag)){
+                    console.log(element.desc);
+                    retour.push(element)
+                }
+                console.log(retour)
+              }); 
+                callback({
+                    state: true,
+                    data: retour
+                })
+            } else {
+                callback({
+                    state: false,
+                    data: []
+                })
+            }
+        }
+    })
+};
 
 module.exports = UsersPost;
 
