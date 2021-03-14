@@ -4,17 +4,17 @@ import './loginRegisterForm.css'
 
 async function LoginUser(userInfo) {
     return await axios.post("http://localhost:8080/back/login", userInfo).then((res) => {
-        return res.data.accessToken;
+        return res.data.state;
     });
 }
 
 async function registerUser(userInfo) {
     return await axios.post("http://localhost:8080/back/addUser", userInfo).then((res) => {
-        return res.data.accessToken;
+        return res.data.state;
     });
 } 
 
-export default function LoginRegisterForm() {
+export default function LoginRegisterForm({setIsregistered}) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [name, setName] = useState("");
@@ -23,11 +23,33 @@ export default function LoginRegisterForm() {
 
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
-        registerUser({email,password,name,family_name})
+        let result;
+        result = registerUser({email,password,name,family_name})
+        result.then((response)=>{
+            if(response === true){
+                setIsregistered(true);
+            }
+            else{
+                console.log('ntm')
+            }
+        })
+        
     };
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
-        LoginUser({email,password})
+        let result;
+        result = LoginUser({email,password})
+        result.then((response)=>{
+            if(response === true){
+                setIsregistered(true);
+            }
+            else{
+                alert("Identifiants incorrects")
+            }
+        })
+        
+        
+            
     };
 
 
@@ -52,8 +74,7 @@ export default function LoginRegisterForm() {
                         <div className="group">
                             <button type="submit" className="button" value="btn-login">Login</button>
                         </div>
-                        <div className="hr">
-                        </div>
+                        
                         
                     </form>
                     <form className="sign-up-htm"  onSubmit={handleRegisterSubmit}>
@@ -73,11 +94,11 @@ export default function LoginRegisterForm() {
                             <label htmlFor="pass" className="label">Email Address</label>
                             <input id="pass" type="text" className="input" onChange={(e) => setEmail(e.target.value)} required />
                         </div>
+                        <br></br>
                         <div className="group">
                             <button type="submit" className="button" value="btn-signup"> Register </button>
                         </div>
-                        <div className="hr">
-                        </div>
+                        
                     </form>
                 </div>
             </div>

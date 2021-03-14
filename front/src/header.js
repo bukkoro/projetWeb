@@ -47,10 +47,7 @@ export default function Header(AuthToken) {
                                 <li>
                                     <Link to="/picture">Picture</Link>
                                 </li>
-                                <li>
-                                    <Link to="/LoginRegister">login </Link>
-                                   
-                                </li>
+                                
                                 <li>
                                     <Link to="/favorites">Favorites</Link>
                                 </li>
@@ -81,10 +78,9 @@ export default function Header(AuthToken) {
                            
                         
                         <div className="main-route-place">
-                           
-                            <Route exact path="/picture" component={() => <UploadImageForm AuthToken={AuthToken} />} />
+                            <Route exact path="/" component={() => <MainPage/>} />
+                            <Route exact path="/picture" component={() => <UploadImageForm/>} />
                             
-                            <Route exact path="/" component={() => <MainPage AuthToken={AuthToken} />} />
                         </div>
                     </li>
                 </BrowserRouter>

@@ -16,28 +16,28 @@ export default  function UploadImageForm()
     const [path, setPath] = useState();
     const [ImageSelected, setImageSelected] = useState();
     const [Legend, setLegend] = useState();
-    const [BroadcastList,SetBroadcastList] = useState([]);
-    const [BroadcastListName,setBroadcastListName] = useState();
+    //const [BroadcastList,SetBroadcastList] = useState([]);
+    //const [BroadcastListName,setBroadcastListName] = useState();
     const [Tags, setTags] = useState();
    useEffect(() =>{
        const tmp = axios.post('http://localhost:8080/back/addPost', null)
        tmp.then( resp =>{
-           console.log(resp.data.broadcast_lists)
-           SetBroadcastList(resp.data.broadcast_lists)
+           //console.log(resp.data.broadcast_lists)
+           //SetBroadcastList(resp.data.broadcast_lists)
        })
    },[]);
 
     const handleSubmit = async e => {
         e.preventDefault();
         const data = new FormData();
-        for( const i in BroadcastList)
+        /*for( const i in BroadcastList)
         {
             if(BroadcastListName === BroadcastList[i].name)
             {
                 data.append('id_broadcast_list',BroadcastList[i].id);
                 console.log(BroadcastList[i])
             }
-        }
+        }*/
         data.append('image', ImageSelected);
         data.append('legend',Legend);
         data.append('tags',Tags)
@@ -54,9 +54,9 @@ export default  function UploadImageForm()
          }
          reader.readAsDataURL(e.target.files[0])
      }
-    const userListChangeHandler = e => {
+    /*const userListChangeHandler = e => {
     setBroadcastListName(e.target.value)
-    }
+    }*/
 
     const tagsChangedHandler = e => {
         setTags(e.target.value)
@@ -83,13 +83,7 @@ export default  function UploadImageForm()
                              <input type="text" onChange={legendChangedHandler} required/>
                         </label>
                         <label>
-                            liste de diffusion
-                            <input type="text" list="data" onChange={userListChangeHandler} required/>
-                            <datalist id="data">
-                                {BroadcastList.map((item) =>
-                                    <option key={item.id} value={item.name} />
-                                )}
-                            </datalist>
+                           
                             <p className="help-text" >tu n'as pas encore crée de liste de diffusion ? clique <a  >ici</a></p>
                         </label>
                         <label> tags de la photo

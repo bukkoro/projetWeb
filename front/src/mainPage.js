@@ -25,12 +25,7 @@ export default function MainPage()
     }
 
     const classNames = `Wall `;
-    return (
-        <div className="container">
-
-            <div className={classNames}>
-                {
-                    ImageList.images_list.map(image => (
+    /*ImageList.images_list.map(image => (
                     <ImageDisplay
                         src={image.path}
                         key={image.id}
@@ -39,7 +34,13 @@ export default function MainPage()
                         idImage={image.id}
                         tagsList={image.tags}
                         preview={"0"}/>
-                ))}
+                ))}*/
+    return (
+        <div className="container">
+
+            <div className={classNames}>
+                {
+                }
             </div>
         </div>
     );
