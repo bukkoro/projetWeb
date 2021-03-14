@@ -23,5 +23,7 @@ Router.get('/getAllFollower', handler.HgetAllFollower)
 Router.post('/deletepost',handler.Hdeletepost)
 //changeGrades
 Router.post('/changegrade',handler.HchangeGrade)
+// get posts of all users which matched the hashtag 
+Router.get('/hashtag',handler.HgetbyHashtag)
 
 module.exports = Router

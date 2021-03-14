@@ -7,9 +7,17 @@ const Router = require('./routes/routes')
 
 mongoose.set('useCreateIndex', true)
 //mongodb://u8f2zcxqiyi0abryburm:cL4NCI4H3Y6Ij0ucIM02@bn6ixksojju0rpu-mongodb.services.clever-cloud.com:27017/bn6ixksojju0rpu
+<<<<<<< HEAD
 //
 //mongodb://u8f2zcxqiyi0abryburm:cL4NCI4H3Y6Ij0ucIM02@bn6ixksojju0rpu-mongodb.services.clever-cloud.com:27017/bn6ixksojju0rpu'
 mongoose.connect('mongodb://localhost:27017/DeliverHome', {useNewUrlParser: true, useUnifiedTopology: true });
+=======
+
+//mongodb://localhost:27017/DeliverHome
+//mongoose.connect('mongodb://u8f2zcxqiyi0abryburm:cL4NCI4H3Y6Ij0ucIM02@bn6ixksojju0rpu-mongodb.services.clever-cloud.com:27017/bn6ixksojju0rpu', {useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connect('mongodb://localhost:27017/DeliverHome', {useNewUrlParser: true, useUnifiedTopology: true })
+>>>>>>> origin/back02
 
 // Init an Exconspress App.
 const app = express();

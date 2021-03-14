@@ -24,7 +24,7 @@ exports.HdeleteUser = (req, res) => {
 }
 
 exports.HaddPost = (req, res) => {
-    userPost.addPost(req.body.img, req.body.email, function (resp) {
+    userPost.addPost(req.body.img, req.body.email, req.body.desc, function (resp) {
         res.send(resp)
     })
 }
@@ -64,3 +64,9 @@ exports.HchangeGrade = (req, res) => {
         res.send(resp)
     })
 }
+exports.HgetbyHashtag = (req, res) => {
+    userPost.getbyHashtag(req.body.hashtag, function (resp){
+        res.send(resp)
+    })
+}
+

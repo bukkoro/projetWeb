@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 /project/node_modules
 /node_modules
 /front/node_modules
+=======
+node_modules/
+>>>>>>> origin/back02
