@@ -13,7 +13,7 @@ import LoginRegisterForm from './loginRegisterForm';
 
 export default function Header(AuthToken) {
     const [tagList,SetTagList] = useState();
-    
+    const [email, setEmail] = useState();
 
     const handleSubmit = async e => {
         const data = new FormData();
@@ -34,10 +34,8 @@ export default function Header(AuthToken) {
                     <div
                         className="title-bar"
                         data-responsive-toggle="example-animated-menu"
-                        data-hide-for="medium"
-                    >
+                        data-hide-for="medium">
                     </div>
-                   
                         <div className="top-bar-left">
                             <ul className="dropdown menu" data-dropdown-menu>
                                 <li className="menu-text"></li>
@@ -47,7 +45,6 @@ export default function Header(AuthToken) {
                                 <li>
                                     <Link to="/picture">Picture</Link>
                                 </li>
-                                
                                 <li>
                                     <Link to="/favorites">Favorites</Link>
                                 </li>
@@ -68,7 +65,7 @@ export default function Header(AuthToken) {
                                             placeholder="Search"
                                             name="tag"
                                         />
-                                        <input type="submit" value="lol" className="button" />
+                                        <input type="submit" value="search" className="button" />
                                 </form>
                                
                             </ul>
@@ -79,14 +76,14 @@ export default function Header(AuthToken) {
                         
                         <div className="main-route-place">
                             <Route exact path="/" component={() => <MainPage/>} />
-                            <Route exact path="/picture" component={() => <UploadImageForm/>} />
+                            <Route exact path="/picture" component={() => <UploadImageForm setEmail={setEmail}/>} />
                             
                         </div>
-                    </li>
-                </BrowserRouter>
-            </nav>
-        </header>
-    );
+                </li>
+            </BrowserRouter>
+        </nav>
+    </header>
+);
 }
 
 //<Route exact path="/logout" component={Logout}/>

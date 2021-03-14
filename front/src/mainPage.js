@@ -40,6 +40,7 @@ export default function MainPage()
 
             <div className={classNames}>
                 {
+                    "Ceci est un test"
                 }
             </div>
         </div>

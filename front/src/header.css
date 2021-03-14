@@ -1,3 +1,4 @@
+	
 #menu {
 	background: #3598A1;
 	background : linear-gradient(to bottom,  #476EAB,  #19273D);
@@ -36,17 +37,17 @@
 	color: #8795AE;
 	background: #c7d0d8;
 }
-#menu input {
-	display: none;
+/* #menu input {
+	
 	margin: 0;
 	padding: 0;
 	height: 50px;
 	width: 100%;
 	opacity: 0;
 	cursor: pointer
-}
-#menu label {
-	display: none;
+} */
+/* #menu label {
+	
 	line-height: 50px;
 	text-align: center;
 	position: absolute;
@@ -56,7 +57,7 @@
 	font-size: 1.6em;
 	content: "\2261"; 
 	margin-left: 20px;
-}
+} */
 #menu ul.sub-menus{
 	height: auto;
 	overflow: hidden;

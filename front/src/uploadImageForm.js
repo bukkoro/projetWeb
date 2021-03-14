@@ -13,19 +13,14 @@ async function uploadImage(data,header)
 
 export default  function UploadImageForm()
 {
+    const [email, setEmail] = useState();
     const [path, setPath] = useState();
     const [ImageSelected, setImageSelected] = useState();
     const [Legend, setLegend] = useState();
     //const [BroadcastList,SetBroadcastList] = useState([]);
     //const [BroadcastListName,setBroadcastListName] = useState();
     const [Tags, setTags] = useState();
-   useEffect(() =>{
-       const tmp = axios.post('http://localhost:8080/back/addPost', null)
-       tmp.then( resp =>{
-           //console.log(resp.data.broadcast_lists)
-           //SetBroadcastList(resp.data.broadcast_lists)
-       })
-   },[]);
+  
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -38,6 +33,7 @@ export default  function UploadImageForm()
                 console.log(BroadcastList[i])
             }
         }*/
+        data.append('email',email)
         data.append('image', ImageSelected);
         data.append('legend',Legend);
         data.append('tags',Tags)
@@ -71,20 +67,23 @@ export default  function UploadImageForm()
         </div>);
     }
     return (
+        
         <div className="grid-container">
+            "ceci est un test pour l'upload d'image"
         <form onSubmit={handleSubmit}>
+           
                 <div className="grid-x grid-padding-x">
                     <div className="medium-6 cell">
+                        
                         <label>Image to send
                             <input type="hidden" name="MAX_FILE_SIZE" value="15000000" />
-                            <input type="file" onChange={fileChangedHandler} required/>
+                            <input type="file"  onChange={fileChangedHandler} required/>
                         </label>
                         <label> légende de la photo
                              <input type="text" onChange={legendChangedHandler} required/>
                         </label>
-                        <label>
-                           
-                            <p className="help-text" >tu n'as pas encore crée de liste de diffusion ? clique <a  >ici</a></p>
+                        <label> Adresse email
+                             <input id="login_email" type="email" className="input"  onChange={(e) => setEmail(e.target.value)} required />
                         </label>
                         <label> tags de la photo
                             <input type="text" onChange={tagsChangedHandler} required/>
