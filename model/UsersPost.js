@@ -4,11 +4,12 @@ const {Schema} = mongoose;
 const UsersPost = function () {
     // create users schema
     this.schema = new mongoose.Schema({
-        img: String,
-        email: String,
-        desc: String, //description ==> hashtag
+        img: {type: String},
+        email: {type: String},
+        desc: {type: String}, //description ==> hashtag
         like: {type: Number, default: 0},
         date: {type: Date, default: Date.now},
+        imageUrl: "/images/my/path/to/image/imagename-id.jpg"
 
     });
     // bind schema with database
@@ -58,7 +59,7 @@ UsersPost.prototype.getAllPost = function (email, callback) {
 UsersPost.prototype.likePost = function (postid, callback) {
     const self = this;
 
-    self.postDB.findOneAndUpdate({_id: postid}, {$inc: {like: 1}}, {new: true},
+    self.postDB.findOneAndUpdate({id: postid}, {$inc: {like: 1}}, {new: true},
         function (err, response) {
             if (err) {
                 callback({
@@ -77,9 +78,9 @@ UsersPost.prototype.likePost = function (postid, callback) {
 
 UsersPost.prototype.deletePost = function (postid, email, callback) {
     const self = this;
-    self.postDB.find({email: email,_id: postid}, function (err, docs) {
+    self.postDB.find({email: email,id: postid}, function (err, docs) {
         if(docs.length){
-            self.postDB.deleteOne({email: email,_id: postid}, function(err, resp){
+            self.postDB.deleteOne({email: email,id: postid}, function(err, resp){
                 callback({
                     state: true,
                     data: resp

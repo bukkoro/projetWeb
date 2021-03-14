@@ -6,12 +6,12 @@ import ImageDisplay from "./imageDisplay";
 
 export default function MainPage()
 {
-    const [ImageList,setImageList] = useState({"images_list":[]});
+    const [ImageList,setImageList] = useState({"data":[]});
 
     console.log(`ImageList ${ImageList}`)
-     {
+     
       useEffect(GetImageIdList, []);
-     }
+     
 
    
 
@@ -40,8 +40,17 @@ export default function MainPage()
 
             <div className={classNames}>
                 {
-                    "Ceci est un test"
-                }
+                  ImageList.data.map(image => (
+                    <ImageDisplay
+                        src={image.path}
+                        key={image.id}
+                        legend={image.legend}
+                        note={image.note}
+                        idImage={image.id}
+                        tagsList={image.tags}
+                        preview={"0"}/>
+                ))}
+                
             </div>
         </div>
     );
