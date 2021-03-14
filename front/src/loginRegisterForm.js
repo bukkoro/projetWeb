@@ -3,18 +3,18 @@ import axios from "axios";
 import './loginRegisterForm.css'
 
 async function LoginUser(userInfo) {
-    return await axios.post("http://localhost:8080/back/get/profiledesc", userInfo).then((res) => {
+    return await axios.post("http://localhost:8080/back/login", userInfo).then((res) => {
         return res.data.accessToken;
     });
 }
 
 async function registerUser(userInfo) {
-    return await axios.post("http://localhost:8080/back/add/user", userInfo).then((res) => {
+    return await axios.post("http://localhost:8080/back/addUser", userInfo).then((res) => {
         return res.data.accessToken;
     });
 } 
 
-export default function LoginRegisterForm({ setToken, setIsregister }) {
+export default function LoginRegisterForm() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [name, setName] = useState("");

@@ -1,12 +1,13 @@
 import LoginRegisterForm from "./loginRegisterForm"
-//import Header from "./header"
+import Header from "./header"
 
 import ReactDOM from "react-dom"
 import UploadImageForm from "./uploadImageForm";
+import MainPage from "./mainPage";
 
 function App() {
   return (
-        <UploadImageForm/>
+        <LoginRegisterForm/>
   );
 }
 

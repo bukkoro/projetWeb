@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import ImageDisplay from "./ImageDisplay";
+import axios from "axios";
+import ImageDisplay from "./imageDisplay";
 
 
 
-export default function MainPage(AuthToken)
+export default function MainPage()
 {
     const [ImageList,setImageList] = useState({"images_list":[]});
 
@@ -12,17 +13,12 @@ export default function MainPage(AuthToken)
       useEffect(GetImageIdList, []);
      }
 
-    const BearerToken = 'Bearer '+AuthToken.AuthToken.token;
+   
 
      function GetImageIdList()
     {
         const data = new FormData();
-        let config = {
-            headers: {
-                Authorization: BearerToken,
-            }
-        }
-         axios.post('/api/get_wall',data,config)
+         axios.get('http://localhost:8080/back/getAllPost',data)
             .then(res =>{
                 setImageList(res.data);
             })
@@ -40,7 +36,6 @@ export default function MainPage(AuthToken)
                         key={image.id}
                         legend={image.legend}
                         note={image.note}
-                        token={BearerToken}
                         idImage={image.id}
                         tagsList={image.tags}
                         preview={"0"}/>
