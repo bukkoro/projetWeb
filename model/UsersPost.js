@@ -9,16 +9,15 @@ const UsersPost = function () {
         desc: {type: String}, //description ==> hashtag
         like: {type: Number, default: 0},
         date: {type: Date, default: Date.now},
-        imageUrl: "/images/my/path/to/image/imagename-id.jpg"
-
+        //imageUrl: "/images/my/path/to/image/imagename-id.jpg"
     });
     // bind schema with database
     this.postDB = mongoose.model('UsersPost', this.schema);
 };
 
-UsersPost.prototype.addPost = function (img, email, callback) {
+UsersPost.prototype.addPost = function (img, email, desc, callback) {
     const self = this;
-    const post = new self.postDB({img: img, email: email});
+    const post = new self.postDB({img: img, email: email, desc : desc});
     post.save().then(function () {
         callback({
             state: true,
