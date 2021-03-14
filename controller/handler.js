@@ -25,7 +25,9 @@ exports.HdeleteUser = (req, res) => {
 
 exports.HaddPost = (req, res) => {
     userPost.addPost(req.body.img, req.body.email, req.body.desc, function (resp) {
+        console.log(req.body.img)
         res.send(resp)
+        
     })
 }
 
