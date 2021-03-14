@@ -19,7 +19,6 @@ mongoose.connect('mongodb://localhost:27017/DeliverHome', {useNewUrlParser: true
 const app = express();
 const PORT = 8080;
 
-app.set("view engine", "ejs");
 
 // use all controllers(APIs) here && // Use your dependencies here
 app.get('/', (req, res) => {
@@ -39,10 +38,16 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/back',Router);
 
+const multer = require('multer');
+const upload = multer();
+
+app.use(upload.array())
+
 //---------IMAGE ADDING-----------------
 
+   

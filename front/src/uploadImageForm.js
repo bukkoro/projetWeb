@@ -2,10 +2,14 @@ import React, { useState, useEffect }from 'react';
 import axios from 'axios';
 import ImageDisplay from './imageDisplay'
 
-async function uploadImage(data,header)
+async function uploadImage(data)
+
 {
-    return axios.post('http://localhost:8080/back/addPost', data,header)
+    const header = {headers:{'Content-Type':'application/x-www-form-urlencodeed'}}
+    return axios.post('http://localhost:8080/back/addPost', data, header)
+   
         .then(res =>{
+            
             return res;
         })
 }
