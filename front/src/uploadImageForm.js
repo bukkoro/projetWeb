@@ -10,7 +10,7 @@ async function uploadImage(data)
 
     return axios.post('http://localhost:8080/back/addPost', 
     
-    {data: qs.stringify("data")},
+    {data: qs.stringify(data)},
     {
         'Content-Type': 'application/x-www-form-urlencoded'
     })
