@@ -10,7 +10,7 @@ This project objective is to create a social network based on Image sharing.
 
 ## Backend
 
-Place yourself in the project folder and execute following commands : 
+Place yourself in the "project" folder and execute following commands : 
 
 ```bash
 npm install 		#to install node-modules
@@ -21,7 +21,7 @@ npm run start 		#to run Node Server
 
 ## FrontEnd
 
-Place yourself in the Project/front folder and execute following commands :
+Place yourself in the "Project/front" folder and execute following commands :
 
 ```bash
 npm install 		#to install node-modules
