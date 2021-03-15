@@ -1,15 +1,21 @@
 import React, { useState, useEffect }from 'react';
 import axios from 'axios';
 import ImageDisplay from './imageDisplay'
+import qs from 'qs';
+
 
 async function uploadImage(data)
 
 {
-    const header = {headers:{'Content-Type':'application/x-www-form-urlencodeed'}}
-    return axios.post('http://localhost:8080/back/addPost', data, header)
+
+    return axios.post('http://localhost:8080/back/addPost', 
+    
+    {data: qs.stringify("data")},
+    {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })
    
         .then(res =>{
-            
             return res;
         })
 }
@@ -41,6 +47,7 @@ export default  function UploadImageForm()
         data.append('image', ImageSelected);
         data.append('legend',Legend);
         data.append('tags',Tags)
+        console.log(data)
         await uploadImage(data);
     }
     const legendChangedHandler = async e =>{

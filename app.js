@@ -3,16 +3,20 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
+const multer = require('multer');
 const Router = require('./routes/routes')
 
 mongoose.set('useCreateIndex', true)
+
+//BDD SUR LE CLOUD 1
 //mongodb://u8f2zcxqiyi0abryburm:cL4NCI4H3Y6Ij0ucIM02@bn6ixksojju0rpu-mongodb.services.clever-cloud.com:27017/bn6ixksojju0rpu
 
 
-//mongodb://localhost:27017/DeliverHome
-//mongoose.connect('mongodb://u8f2zcxqiyi0abryburm:cL4NCI4H3Y6Ij0ucIM02@bn6ixksojju0rpu-mongodb.services.clever-cloud.com:27017/bn6ixksojju0rpu', {useNewUrlParser: true, useUnifiedTopology: true });
+//BDD SUR LE CLOUD 2
+mongoose.connect('mongodb://u8f2zcxqiyi0abryburm:cL4NCI4H3Y6Ij0ucIM02@bn6ixksojju0rpu-mongodb.services.clever-cloud.com:27017/bn6ixksojju0rpu', {useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.connect('mongodb://localhost:27017/DeliverHome', {useNewUrlParser: true, useUnifiedTopology: true })
+//BDD LOCALE
+//mongoose.connect('mongodb://localhost:27017/DeliverHome', {useNewUrlParser: true, useUnifiedTopology: true })
 
 
 // Init an Exconspress App.
@@ -42,12 +46,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/back',Router);
-
-const multer = require('multer');
 const upload = multer();
+app.use(upload.array());
 
-app.use(upload.array())
-
-//---------IMAGE ADDING-----------------
 
    
